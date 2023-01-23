@@ -1,0 +1,19 @@
+{
+  "name": "youcast-armadillo",
+  "version": "1.0.0",
+  "description": "A service that converts public Youtube playlists into podcasts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moto42/youcast-armadillo.git"
+  },
+  "author": "Wesley Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moto42/youcast-armadillo/issues"
+  },
+  "homepage": "https://github.com/Moto42/youcast-armadillo#readme"
+}
