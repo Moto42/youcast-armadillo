@@ -54,17 +54,17 @@ resources from various data sources such as soundcloud, youtube, or a
 radiotelescope.
 
 ## Source Interface:  
-## mp3 
+### mp3 
 given a resource `id` representing a single item, returns a .mp3 file of
 the requested resource.
 
-## mp3url
+### mp3url
 given a resource `id` representing a single item, returns the string 
 url to request the .mp3 of this resource.  
 This may be a direct link to the source of the item, or a link to request it via
 the `mp3` method above.
 
-## playlist
+### playlist
 given a recource `id` representign a collection of items, returns an
 array with the information about each of those items.
 
