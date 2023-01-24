@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Moto42/youcast-armadillo/issues"
   },
-  "homepage": "https://github.com/Moto42/youcast-armadillo#readme"
+  "homepage": "https://github.com/Moto42/youcast-armadillo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
