@@ -4,6 +4,9 @@
 
 const express = require('express');
 const app = express();
+const youcast = require('./youcast');
+
+app.use(youcast);
 
 
 if (require.main === module) {
