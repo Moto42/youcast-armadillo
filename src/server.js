@@ -6,14 +6,10 @@ const express = require('express');
 const app = express();
 
 
-function startServer() {
-    return app.listen(8080);
-}
-
 if (require.main === module) {
-    startServer();
+    app.listen(8080);
 }
 
 module.exports = {
-    startServer: startServer,
+    app: app,
 }
