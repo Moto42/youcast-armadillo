@@ -1,7 +1,8 @@
-import {expect} from 'chai';
+const {expect} = require('chai');
+const server = require("./server");
 
 describe('Server basic tests',()=>{
     it("Doesn't immedietly fail",()=>{
-        expect(true).to.be.ok;
+        expect(server).to.be.ok;
     });
 });

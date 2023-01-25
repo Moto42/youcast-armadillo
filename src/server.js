@@ -2,7 +2,18 @@
  * Express server that just hands requests off to the middleware.
  */
 
-import express from 'express';
+const express = require('express');
 const server = express();
 
-server.use()
+
+function startServer() {
+
+}
+
+if (require.main === module) {
+    startServer();
+}
+
+module.exports = {
+    startServer: startServer,
+}
