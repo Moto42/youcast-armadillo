@@ -3,11 +3,11 @@
  */
 
 const express = require('express');
-const server = express();
+const app = express();
 
 
 function startServer() {
-
+    return app.listen(8080);
 }
 
 if (require.main === module) {

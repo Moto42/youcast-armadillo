@@ -1,8 +1,15 @@
 const {expect} = require('chai');
-const server = require("./server");
+const supertest = require('supertest');``
+const {startServer} = require("./server");
 
 describe('Server basic tests',()=>{
     it("Doesn't immedietly fail",()=>{
-        expect(server).to.be.ok;
+        expect(()=>{
+            const server = startServer();
+            server.close();
+        }).not.to.throw();
+    });
+    it("passes requests to my middleware", (done)=>{
+
     });
 });
