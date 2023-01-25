@@ -2,7 +2,7 @@
  * Express server that just hands requests off to the middleware.
  */
 
-const express = require('express');
+import express from 'express';
 const server = express();
 
 server.use()
