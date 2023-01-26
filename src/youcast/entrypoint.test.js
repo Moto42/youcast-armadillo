@@ -15,7 +15,8 @@ describe('api/formats', () => {
         expect(data).toEqual(['api']);
     });
     it('event "registerFormat" adds a new format to the list',async () => {
-        youcastEventChannel.emit('registerFormat','test','test');
+        //emit event that registers new format
+        youcastEventChannel.emit('registerFormat','test');
 
         const response = await request.get('/api/formats');
         expect(response.status).toBe(200);
