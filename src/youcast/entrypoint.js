@@ -5,6 +5,7 @@
  */
 
 const {EventEmitter} = require('node:events');
+const { format } = require('node:path');
 const FormatRegistry = require('./formats/FormatsRegistry');
 
 /**
@@ -21,8 +22,10 @@ youcastEventChannel.emit('plugins-register');
 const formatRegistry = new FormatRegistry(youcastEventChannel);
 
 function entrypoint(req, res, next){
-    console.log(req.path);
-    youcastEventChannel.emit(req.path, req, res);
+    const [format,identifier] = req.path.split(/\//g).slice(1);
+    console.log('askd',formatRegistry.includes(format));
+    if(formatRegistry.includes(format)) youcastEventChannel.emit(req.path, req, res);
+    else res.status(404).json({status:404,message:`Format ${format} not found.`});
 }
 
 module.exports = {entrypoint, YoucastEventEmitter, youcastEventChannel};

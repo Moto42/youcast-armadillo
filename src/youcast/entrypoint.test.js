@@ -26,4 +26,9 @@ describe('api/formats', () => {
 
         expect(actual).toEqual(correct);
     })
+
+    it('returns an error when an unregistered format is requested', async () => {
+        const response = await request.get('/herp/derp');
+        expect(response.status).toBe(404);
+    });
 });
