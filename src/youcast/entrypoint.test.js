@@ -1,5 +1,7 @@
 const entrypoint = require('./entrypoint');
 
 describe('entrpoint startup procedure', ()=>{
-    beforeAll
+    it('is',()=>{
+        expect(true).toBe(true);
+    });
 });
