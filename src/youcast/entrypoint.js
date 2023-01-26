@@ -5,6 +5,7 @@
  */
 
 const {EventEmitter} = require('node:events');
+const FormatRegistry = require('./formats/FormatsRegistry');
 
 /**
  * 
@@ -12,21 +13,16 @@ const {EventEmitter} = require('node:events');
  */
 function YoucastEventEmitter(){
     const emmiter = new EventEmitter();
-    emmiter.on('register-plugin',register_plugin);
-
     return emmiter;
 }
-
-function register_plugin(){
-    console.log('plugin registered');
-}
-
 const youcastEventChannel = new YoucastEventEmitter();
 youcastEventChannel.emit('plugins-register');
 
+const formatRegistry = new FormatRegistry(youcastEventChannel);
+
 function entrypoint(req, res, next){
-    res.status(501);
-    res.send('toots');
+    console.log(req.path);
+    youcastEventChannel.emit(req.path, req, res);
 }
 
 module.exports = {entrypoint, YoucastEventEmitter, youcastEventChannel};

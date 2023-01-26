@@ -1,21 +1,28 @@
+const {mwsupertest} = require('middleware-supertest');
 
-describe('entrpoint startup procedure', ()=>{
-    //I have spent hours trying to get this figured out.
-    it.todo('emits event "plugins-register" on startup');
-});
-
-describe('plugins are registered',()=>{
-    let entrypoint, youcastEventChannel, YoucastEventEmitter;
+describe('api/formats', () => {
+    let entrypoint, youcastEventChannel;
+    let request;
     beforeEach(()=>{
-        const thinger = require('./entrypoint');
-        entrypoint = thinger.entrypoint;
-        youcastEventChannel = thinger.youcastEventChannel;
-        YoucastEventEmitter = thinger.YoucastEventEmitter;
+        ({entrypoint, youcastEventChannel} = require('./entrypoint'));
+        request = mwsupertest(entrypoint);
     });
-    it('responds to "register-plugin" event', () => {
-        const spy = jest.fn();
-        youcastEventChannel.register_plugin = spy;
-        youcastEventChannel.emit('register-plugin');
-        expect(spy).toHaveBeenCalledTimes(1);
+
+    it('returns an array listing only itself when no other formats are registered', async () => {
+        const response = await request.get('/api/formats');
+        expect(response.status).toBe(200);
+        const data = JSON.parse(response.text);
+        expect(data).toEqual(['api']);
     });
-})
+    it('event "registerFormat" adds a new format to the list',async () => {
+        youcastEventChannel.emit('registerFormat','test','test');
+
+        const response = await request.get('/api/formats');
+        expect(response.status).toBe(200);
+
+        const actual = JSON.parse(response.text);
+        const correct = ['api','test'];
+
+        expect(actual).toEqual(correct);
+    })
+});
