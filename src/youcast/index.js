@@ -1,2 +1,2 @@
-const entrypoint = require('./entrypoint');
+const {entrypoint} = require('./entrypoint');
 module.exports = entrypoint;
