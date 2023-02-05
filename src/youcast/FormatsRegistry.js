@@ -1,14 +1,26 @@
-module.exports =  function FormatRegistry(messageChannel){
+const {existsSync} = require('fs');
+
+
+function FormatRegistry(messageChannel){
     this.formats = [];
     
     this.includesByShortcode = shortcode => {
-        return this.formats.some(f => f.shortcode = shortcode);
+        return this.formats.some(f => f.shortcode == shortcode);
     };
 
     this.registerFormat = (shortcode) => {
-        //check ./formats folder for a subfolder with shortcode as it's name
-        const newFormat = require(`./formats/${shortcode}`);
-        this.formats.push(new newFormat(messageChannel));
+        const path1 = `${__dirname}/formats/${shortcode}.js`;
+        const path2 = `${__dirname}/formats/${shortcode}/index.js`;
+        // if the file exists...
+        const apiFound = existsSync(path1) || existsSync(path2);
+        if(apiFound){
+            const location = path1 ? path1 : path2;
+            const newFormat = require(location);
+            this.formats.push(new newFormat(messageChannel));
+        }
+        else {
+            throw new Error(`Format '${shortcode}' is not found in the formats folder`);
+        }
     }
     messageChannel.on('registerFormat',this.registerFormat);
 
@@ -20,3 +32,4 @@ module.exports =  function FormatRegistry(messageChannel){
 
 }
 
+module.exports = FormatRegistry;
