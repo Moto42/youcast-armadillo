@@ -27,6 +27,7 @@ function FormatRegistry(messageChannel){
             throw new Error(`Format '${shortcode}' is not found in the formats folder`);
         }
     }
+    messageChannel.on('registerFormat',this.registerFormat);
 
     this.listFormats = () => {
         const list = this.formats.map(f=>f.shortcode);

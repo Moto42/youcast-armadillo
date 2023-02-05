@@ -68,5 +68,10 @@ describe('Responds to Events', () => {
         });
         channel.emit('listFormats');
     });
+    it('responds to "registerFormat" event by registering a format specified by shortcode', () => {
+        expect(registry.listFormats()).toEqual([]);
+        channel.emit('registerFormat','api');
+        expect(registry.listFormats()).toEqual(['api']);
+    });
 
 });
