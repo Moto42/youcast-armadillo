@@ -34,6 +34,9 @@ describe.only('Register and report formats', () => {
             registry.registerFormat('error')
         }).toThrow();
     });
+    it('can list the currently registered formats', () => {
+        expect(registry.listFormats()).toEqual([]);
+    });
     
 
     

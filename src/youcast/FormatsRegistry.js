@@ -27,6 +27,7 @@ function FormatRegistry(messageChannel){
     this.listFormats = () => {
         const list = this.formats.map(f=>f.shortcode);
         messageChannel.emit('formatsList',list);
+        return list;
     }
     messageChannel.on('listFormats', this.listFormats);
 
