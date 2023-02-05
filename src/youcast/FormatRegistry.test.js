@@ -15,7 +15,7 @@ describe('Instatiation', () => {
     });
 });
 
-describe.only('Register and report formats', () => {
+describe('Register and report formats', () => {
 
     let registry, channel;
 
@@ -36,10 +36,20 @@ describe.only('Register and report formats', () => {
     });
     it('can list the currently registered formats', () => {
         expect(registry.listFormats()).toEqual([]);
+        registry.registerFormat('api');
+        expect(registry.listFormats()).toEqual(['api']);    
     });
-    
-
-    
+    it('does not register duplicate formats', () => {
+        expect(registry.listFormats()).toEqual([]);
+        registry.registerFormat('api');
+        registry.registerFormat('api');
+        expect(registry.listFormats()).toEqual(['api']);    
+    });
+    it('can tell you if a given api is registered', ()=>{
+        expect(registry.includesByShortcode('nothing')).toBe(false);
+        registry.registerFormat('api');
+        expect(registry.includesByShortcode('api')).toBe(true);
+    });
 });
 
 describe('Responds to Events', () => {
@@ -51,8 +61,12 @@ describe('Responds to Events', () => {
         registry = new FormatsRegistry(channel);
     });
 
-    test('Responds to Events', () => {
-        
+    it('responds to "listFormats" event with "formatsList" even containing array of Formats', (done) => {
+        channel.on('formatsList',(list)=>{
+            expect(list).toEqual([]);
+            done();
+        });
+        channel.emit('listFormats');
     });
 
 });

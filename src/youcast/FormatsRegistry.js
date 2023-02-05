@@ -13,7 +13,12 @@ function FormatRegistry(messageChannel){
         const path2 = `${__dirname}/formats/${shortcode}/index.js`;
         // if the file exists...
         const apiFound = existsSync(path1) || existsSync(path2);
-        if(apiFound){
+        const isAlreadyRegistered = this.includesByShortcode(shortcode);
+        if(isAlreadyRegistered) {
+            return;
+        }
+        else if(apiFound){
+
             const location = path1 ? path1 : path2;
             const newFormat = require(location);
             this.formats.push(new newFormat(messageChannel));
@@ -22,7 +27,6 @@ function FormatRegistry(messageChannel){
             throw new Error(`Format '${shortcode}' is not found in the formats folder`);
         }
     }
-    messageChannel.on('registerFormat',this.registerFormat);
 
     this.listFormats = () => {
         const list = this.formats.map(f=>f.shortcode);
