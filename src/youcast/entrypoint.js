@@ -17,7 +17,6 @@ function YoucastEventEmitter(){
     return emmiter;
 }
 const youcastEventChannel = new YoucastEventEmitter();
-youcastEventChannel.emit('plugins-register');
 
 const formatRegistry = new FormatsRegistry(youcastEventChannel);
 
