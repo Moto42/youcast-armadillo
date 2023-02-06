@@ -39,6 +39,7 @@ function SourcesRegistry(messageChannel){
             this.registerSource(f);
         }
     }
+    messageChannel.on('registerAllSources',this.registerAll);
 
     this.listSources = () => {
         const list = this.sources.map(f=>f.shortcode);

@@ -77,5 +77,9 @@ describe('Responds to Events', () => {
         channel.emit('registerSource','youtube');
         expect(registry.listSources()).toEqual(['youtube']);
     });
-
+    it('responds to "registerAllSources" event by registering all sources found in /sources', () => {
+        expect(registry.listSources()).toEqual([]);
+        channel.emit('registerAllSources','youtube');
+        expect(registry.listSources()).toEqual(['youtube']);
+    });
 });
