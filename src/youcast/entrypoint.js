@@ -19,8 +19,10 @@ function YoucastEventEmitter(){
 const youcastEventChannel = new YoucastEventEmitter();
 
 const formatRegistry = new FormatsRegistry(youcastEventChannel);
+formatRegistry.registerAll();
 // This is being used, it's just caled by even emitters later.
 const sourcesRegistry = new SourcesRegistry(youcastEventChannel);
+sourcesRegistry.registerAll();
 
 function entrypoint(req, res, next){
 
