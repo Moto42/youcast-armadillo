@@ -77,5 +77,10 @@ describe('Responds to Events', () => {
         channel.emit('registerFormat','api');
         expect(registry.listFormats()).toEqual(['api']);
     });
+    it('responds to "registerAllFormats" event by registering all formats in the /formats folder', () => {
+        expect(registry.listFormats()).toEqual([]);
+        channel.emit('registerAllFormats','api');
+        expect(registry.listFormats()).toEqual(['api']);
+    });
 
 });
