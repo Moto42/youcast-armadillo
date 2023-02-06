@@ -5,7 +5,8 @@
  */
 
 const {EventEmitter} = require('node:events');
-const FormatRegistry = require('./FormatsRegistry');
+const FormatsRegistry = require('./FormatsRegistry');
+const SourcesRegistry = require('./SourcesRegistry');
 
 /**
  * 
@@ -18,7 +19,7 @@ function YoucastEventEmitter(){
 const youcastEventChannel = new YoucastEventEmitter();
 youcastEventChannel.emit('plugins-register');
 
-const formatRegistry = new FormatRegistry(youcastEventChannel);
+const formatRegistry = new FormatsRegistry(youcastEventChannel);
 
 function entrypoint(req, res, next){
     const [format,source,identifier] = req.path.split(/\//g).slice(1);
