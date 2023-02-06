@@ -50,6 +50,10 @@ describe('Register and report sources', () => {
         registry.registerSource('youtube');
         expect(registry.includesByShortcode('youtube')).toBe(true);
     });
+    it('can register all the sources in the sources folder', () => {
+        registry.registerAll();
+        expect(registry.listSources()).toEqual(['youtube']);
+    });
 });
 
 describe('Responds to Events', () => {

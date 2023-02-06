@@ -19,8 +19,12 @@ function YoucastEventEmitter(){
 const youcastEventChannel = new YoucastEventEmitter();
 
 const formatRegistry = new FormatsRegistry(youcastEventChannel);
+// This is being used, it's just caled by even emitters later.
+const sourcesRegistry = new SourcesRegistry(youcastEventChannel);
 
 function entrypoint(req, res, next){
+
+
     const [format,source,identifier] = req.path.split(/\//g).slice(1);
     if(formatRegistry.includesByShortcode(format)) youcastEventChannel.emit(req.path, req, res);
     else {

@@ -50,6 +50,10 @@ describe('Register and report formats', () => {
         registry.registerFormat('api');
         expect(registry.includesByShortcode('api')).toBe(true);
     });
+    it('can register all the formats in the formats folder', () => {
+        registry.registerAll();
+        expect(registry.listFormats()).toEqual(['api']);
+    });
 });
 
 describe('Responds to Events', () => {

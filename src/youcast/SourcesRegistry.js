@@ -1,4 +1,4 @@
-const {existsSync} = require('fs');
+const {existsSync, readdirSync} = require('fs');
 
 
 function SourcesRegistry(messageChannel){
@@ -30,6 +30,15 @@ function SourcesRegistry(messageChannel){
         }
     }
     messageChannel.on('registerSource',this.registerSource);
+
+    this.registerAll = () => {
+        // get list of all things in the formats folder
+        const sourcesList =  readdirSync(`${__dirname}/sources`).map(fn => fn.split('.')[0]);
+        for(let f of sourcesList){
+            //register them all
+            this.registerSource(f);
+        }
+    }
 
     this.listSources = () => {
         const list = this.sources.map(f=>f.shortcode);
