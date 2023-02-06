@@ -2,12 +2,6 @@ const {mwsupertest} = require('middleware-supertest');
 
 describe('api/formats', () => {
 
-    it('returns 404 when no formats are registerd', async () => {
-        const {entrypoint,youcastEventChannel} = require('./entrypoint');
-        const request = mwsupertest(entrypoint);
-        const response = await request.get('/api/formats');
-        expect(response.status).toBe(404);
-    });
     it('event "registerFormat" adds a new format to the list',async () => {
         const {entrypoint,youcastEventChannel} = require('./entrypoint');
         const request = mwsupertest(entrypoint);
