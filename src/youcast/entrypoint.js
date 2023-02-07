@@ -9,8 +9,8 @@ const FormatsRegistry = require('./FormatsRegistry');
 const SourcesRegistry = require('./SourcesRegistry');
 
 /**
- * 
- * @returns EventEmmitter
+ * Entrypoint for the middleware. Pretty much just makes sure the format requested exists, then hands it off to that format via an event.
+ * @fires <format_shortcodes>
  */
 function YoucastEventEmitter(){
     const emmiter = new EventEmitter();
