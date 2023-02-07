@@ -12,5 +12,12 @@ module.exports = function Api(messageChannel) {
         messageChannel.once("formatsList",respondWithList);
         messageChannel.emit("listFormats");
     }
-    messageChannel.on('/api/formats',this.api_formats);
+
+    messageChannel.on('api',(req,res,source,id)=>{
+        // `source` is the second position of the urlpath.
+        const lib = {
+            formats: (req,res) => this.api_formats(req,res),
+        }
+        lib[source](req,res,source,id);
+    });
 }

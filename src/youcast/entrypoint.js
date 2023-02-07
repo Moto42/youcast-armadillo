@@ -28,7 +28,7 @@ function entrypoint(req, res, next){
 
 
     const [format,source,identifier] = req.path.split(/\//g).slice(1);
-    if(formatRegistry.includesByShortcode(format)) youcastEventChannel.emit(req.path, req, res);
+    if(formatRegistry.includesByShortcode(format)) youcastEventChannel.emit(format, req, res, source, identifier);
     else {
         res.status(404).json({status:404,message:`Format ${format} not found.`});
     }
