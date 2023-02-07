@@ -28,3 +28,46 @@ describe('can download a video', () => {
     });
 
 });
+
+
+describe('mp3url', () => {
+
+    let source, messageChannel;
+    const env = process.env
+
+    beforeEach(() => {
+        messageChannel = new EventEmitter();
+        source = new YoutubeSource(messageChannel);
+        const fileSytem = {}
+        fileSytem[__dirname] = {};
+        mockfs(fileSytem);
+
+        jest.resetModules()
+        process.env = { ...env }
+
+    });
+    afterEach(() => {
+        mockfs.restore();
+        process.env = env
+    });
+    afterAll(() => {
+        mockfs.restore();
+    });
+
+
+    it('return a relative URL when SERVER_URL is not set', () => {
+        process.env.SERVER_URL = 'http://someurl.tld';
+        const result = source.mp3url('falseid');
+        const correct = 'http://someurl.tld/mp3/youtube/falseid';
+        expect(result).toEqual(correct);
+    });
+    
+    it('return a full URL when SERVER_URL is set', () => {
+        process.env
+        const result = source.mp3url('falseid');
+        const correct = '/mp3/youtube/falseid';
+        expect(result).toEqual(correct);
+    });
+
+
+});

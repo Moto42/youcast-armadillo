@@ -64,6 +64,16 @@ const YoutubeSource = function(messageChannel, options) {
         }
     }
     messageChannel.on('youtube.mp3', this.downloadVideo);
+
+    /** return the url to get an mp3 of some video 
+     * @param {string} id - youtube video id
+     * @listens youtube.mp3url
+     * @fires mp3url.youtube.<id>
+     */
+    this.mp3url = (id) => {
+        const url = `${process.env.SERVER_URL || ''}/mp3/youtube/${id}`;
+        return url;
+    }
 }
 
 /**
