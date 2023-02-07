@@ -37,7 +37,24 @@ Other properties will vary depending upon the thing being returned
 | -------- | ------ | ------------------------------ |
 | filepath | string | full path to the mp3 requested |
 
-### mp3url
+#### mp3url
+
 | key | type   | description             |
 | --- | ------ | ----------------------- |
 | url | string | url to request this mp3 |
+
+### Addressing events to formats
+
+To send an event to a given format use {messageChannel}.emit({format shortcode}, req, res, source, id);
+
+Because most calls to the server will take the form .../format/source/id; we just pull them out and pass them along from the start.
+
+In the rare case that a format does different things, it will have to inspect the arguments passed to it by the event to decide what to do.  
+(see the `api` format for one way to handle this);
+
+### Addressing events to Sources
+
+Sources have multiple functions, so it is nessisary to have a way to address them individualy.
+
+The general pattern is to name the event `{shortcode}.{function}` and pass the args that method requires as normal.
+
