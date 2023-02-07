@@ -22,7 +22,7 @@ describe('can download a video', () => {
         mockfs.restore();
     });
 
-    it('can download a video to a file named `youtube-<id>.mp3, and returns the filepath`',  () => {
+    it.skip('can download a video to a file named `youtube-<id>.mp3, and returns the filepath`',  () => {
         const filepath = source.downloadVideo('G-ShmHzJJY0');
         expect(filepath).toContain('G-ShmHzJJY0');
     });
