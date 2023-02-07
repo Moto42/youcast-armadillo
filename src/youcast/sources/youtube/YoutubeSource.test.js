@@ -24,7 +24,7 @@ describe('can download a video', () => {
 
     it('can download a video to a file named `youtube-<id>.mp3, and returns the filepath`',  () => {
         const filepath = source.downloadVideo('G-ShmHzJJY0');
-        expect(filepath).toInclude('G-ShmHzJJY0');
+        expect(filepath).toContain('G-ShmHzJJY0');
     });
 
 });

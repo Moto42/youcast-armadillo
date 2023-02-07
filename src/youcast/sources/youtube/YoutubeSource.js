@@ -17,26 +17,23 @@ const YoutubeSource = function(messageChannel, options) {
     fs.mkdirSync(this.cachefolder,{recursive:true});
 
     this.downloadVideo = async (id) => {
+        const eventName = `youtube-${id}`;
         const filepath = `${this.cachefolder}/youtube-${id}.mp3`;
 
         const y = new Ymp3();
 
         await y.Download(id,filepath);
 
-        y.on('start',  function (commandLine) {
-            console.log(commandLine)
-        })
-
-        y.on('progress',  function (progress) {
-            console.log(progress)
-        })
-
         y.on('finish',  function (fileName) {
-            console.log(fileName)
+
         })
 
         y.on('error', function (e) {
-            console.log(e)
+            const message = {
+                error: 'Error occured',
+                filepath: null,
+            };
+            this.messageChannel.emit(eventName, message)
         })
 
         return filepath;
