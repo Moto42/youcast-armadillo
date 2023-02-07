@@ -20,6 +20,9 @@ const YoutubeSource = function(messageChannel, options) {
         const eventName = `youtube-${id}`;
         const filepath = `${this.cachefolder}/youtube-${id}.mp3`;
 
+        //Is it already cached?
+        if(fs.existsSync) return filepath;
+
         const y = new Ymp3();
 
         await y.Download(id,filepath);
