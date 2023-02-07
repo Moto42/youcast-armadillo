@@ -2,6 +2,12 @@
 
 A service that converts public Youtube playlists into podcasts
 
+## Enviromental vars
+
+| var        | type   | description            | required                 |
+| ---------- | ------ | ---------------------- | ------------------------ |
+| SERVER_URL | string | full url of the server | no but prbably should be |
+
 ## Plugins
 
 Plugins handle the various formats and sources available
