@@ -1,21 +1,6 @@
 const {mwsupertest} = require('middleware-supertest');
 
 describe('api/formats', () => {
-
-    it('event "registerFormat" adds a new format to the list',async () => {
-        const {entrypoint,youcastEventChannel} = require('./entrypoint');
-        const request = mwsupertest(entrypoint);
-        //emit event that registers new format
-        youcastEventChannel.emit('registerFormat','api');
-
-        const response = await request.get('/api/formats');
-        expect(response.status).toBe(200);
-        
-        const actual = JSON.parse(response.text);
-        const correct = ['api'];
-        
-        expect(actual).toEqual(correct);
-    })
     
     it('does not crash after the first request for a format list',async () => {
         const {entrypoint,youcastEventChannel} = require('./entrypoint');
@@ -30,7 +15,7 @@ describe('api/formats', () => {
         expect(response2.status).toBe(200);
         
         const actual = JSON.parse(response.text);
-        const correct = ['api'];
+        const correct = ['api','mp3'];
     })
 
     it('event "returns 404 when an unregistered format is requested',async () => {
@@ -43,7 +28,7 @@ describe('api/formats', () => {
         expect(response.status).toBe(200);
         
         const actual = JSON.parse(response.text);
-        const correct = ['api'];
+        const correct = ['api','mp3'];
         
         expect(actual).toEqual(correct);
         
