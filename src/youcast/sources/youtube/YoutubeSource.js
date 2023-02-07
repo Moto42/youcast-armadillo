@@ -4,6 +4,7 @@ const EventEmitter  = require('node:events');
 /**
  * 
  * @param {EventEmitter} messageChannel 
+ * @returns YoutubeSource;
  */
 const YoutubeSource = function(messageChannel) {
     this.messageChannel = messageChannel;
@@ -12,7 +13,9 @@ const YoutubeSource = function(messageChannel) {
 
 
     this.downloadVideo = (id) => {
-        fs.writeFileSync("foo.txt", "bar");
+        const filepath = `youtube-${id}.mp3`;
+        fs.writeFileSync(filepath, "bar");
+        return filepath;
     }
 }
 
