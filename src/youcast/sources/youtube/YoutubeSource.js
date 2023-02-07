@@ -11,8 +11,8 @@ const YoutubeSource = function(messageChannel, options) {
     this.messageChannel = messageChannel;
     this.name = 'YouTube';
     this.shortcode = 'youtube';
-    this.cachepath = options?.cachepath ?? `${__dirname}\\cache`;
-
+    
+    fs.mkdirSync('./cache',{recursive:true});
 
     this.downloadVideo = (id) => {
         const filepath = `youtube-${id}.mp3`;
