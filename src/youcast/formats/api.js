@@ -13,6 +13,7 @@ module.exports = function Api(messageChannel) {
         messageChannel.emit("listFormats");
     }
 
+    //listen for the format to be called, then to the appropriate thing.
     messageChannel.on('api',(req,res,source,id)=>{
         // `source` is the second position of the urlpath.
         const lib = {
