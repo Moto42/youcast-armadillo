@@ -16,7 +16,16 @@ const YoutubeSource = function(messageChannel, options) {
     this.cachefolder = `${__dirname}/cache`;
     fs.mkdirSync(this.cachefolder,{recursive:true});
 
-    
+    /**
+     * convert a youtube video to mp3, save to filesystem and return full path to that file
+     * 
+     * will cache the files created so they can be pulled more quickly in the future.
+     * 
+     * @param {string} id Youtube video id
+     * @returns {Object} source response with `filepath` (full path to the file, null on error)`error` (may be null)
+     * @listens youtube.mp3
+     * @emits youtube-<id>
+     */
     this.downloadVideo = (id) => {
         console.log(`youtube - downloadVideo fired for video id ${id}`);
         const eventName = `youtube-${id}`;
@@ -60,7 +69,7 @@ const YoutubeSource = function(messageChannel, options) {
 
 /**
  * @typedef YoutubeSourceOptions
- * @property cachepat {string} - full path of directory to save cached mp3s to.
+ * @property cachepath {string} - full path of directory to save cached mp3s to.
  */
 
 module.exports = YoutubeSource;
