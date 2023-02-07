@@ -4,12 +4,14 @@ const EventEmitter  = require('node:events');
 /**
  * 
  * @param {EventEmitter} messageChannel 
+ * @param {YoutubeSourceOptions} options
  * @returns YoutubeSource;
  */
-const YoutubeSource = function(messageChannel) {
+const YoutubeSource = function(messageChannel, options) {
     this.messageChannel = messageChannel;
     this.name = 'YouTube';
     this.shortcode = 'youtube';
+    this.cachepath = options?.cachepath ?? `${__dirname}\\cache`;
 
 
     this.downloadVideo = (id) => {
@@ -18,5 +20,10 @@ const YoutubeSource = function(messageChannel) {
         return filepath;
     }
 }
+
+/**
+ * @typedef YoutubeSourceOptions
+ * @property cachepat {string} - full path of directory to save cached mp3s to.
+ */
 
 module.exports = YoutubeSource;
