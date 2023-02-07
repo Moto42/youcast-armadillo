@@ -1,6 +1,7 @@
 const Ymp3 = require('ymp3d')
 const fs = require('fs');
 const EventEmitter  = require('node:events');
+const { fail } = require('assert');
 
 /**
  * handler for getting information and files from Youtube. 
@@ -39,7 +40,6 @@ const YoutubeSource = function(messageChannel, options) {
             messageChannel.emit(eventName, message);
         }
         function failure(error){
-            console.log(e);
             const message = {
                 error: 'Error occured',
                 filepath: null,
@@ -54,12 +54,12 @@ const YoutubeSource = function(messageChannel, options) {
         }
         else {
             const y = new Ymp3();
-            y.Download(id,filepath);
             y.on('progress',(progress)=>{
                 console.log(progress);
             })
             y.on('finish',  success);
-            y.on('error', failure);
+            y.on('error',failure);
+            y.Download(id,filepath).catch(failure);
             return null
         }
     }
