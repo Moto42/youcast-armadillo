@@ -26,8 +26,8 @@ sourcesRegistry.registerAll();
 
 function entrypoint(req, res, next){
 
-
     const [format,source,identifier] = req.path.split(/\//g).slice(1);
+    console.log({format,source,identifier});
     if(formatRegistry.includesByShortcode(format)) youcastEventChannel.emit(format, req, res, source, identifier);
     else {
         res.status(404).json({status:404,message:`Format ${format} not found.`});
