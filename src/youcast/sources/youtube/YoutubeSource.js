@@ -1,10 +1,9 @@
 const Ymp3 = require('ymp3d')
-
 const fs = require('fs');
 const EventEmitter  = require('node:events');
 
 /**
- * 
+ * handler for getting information and files from Youtube. 
  * @param {EventEmitter} messageChannel 
  * @param {YoutubeSourceOptions} options
  * @returns YoutubeSource;
