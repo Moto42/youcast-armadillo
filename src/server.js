@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const youcast = require('./youcast');
 
+console.log('Server starting...')
+
 process.on('uncaughtException', err => console.log(err));
 
 app.use(youcast);
@@ -16,7 +18,7 @@ app.use((err, req, res, next) => {
 
 
 if (require.main === module) {
-    app.listen(8080);
+    app.listen(8080, ()=>console.log(`Server started on port 8080`));
 }
 
 module.exports = {
