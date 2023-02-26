@@ -52,7 +52,7 @@ describe('Register and report formats', () => {
     });
     it('can register all the formats in the formats folder', () => {
         registry.registerAll();
-        expect(registry.listFormats()).toEqual(['api','mp3']);
+        expect(registry.listFormats()).toEqual(['api','mp3','rss']);
     });
 });
 
@@ -80,7 +80,7 @@ describe('Responds to Events', () => {
     it('responds to "registerAllFormats" event by registering all formats in the /formats folder', () => {
         expect(registry.listFormats()).toEqual([]);
         channel.emit('registerAllFormats','api');
-        expect(registry.listFormats()).toEqual(['api','mp3']);
+        expect(registry.listFormats()).toEqual(['api','mp3','rss']);
     });
 
 });

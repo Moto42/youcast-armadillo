@@ -14,4 +14,4 @@ function RSSFormat(messageChannel) {
 
 
 
-module.exports = Mp3Format;
+module.exports = RSSFormat;
