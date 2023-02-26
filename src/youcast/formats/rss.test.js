@@ -1,5 +1,18 @@
-describe('builds rss feeds', () => {
-    it('returns valid XML', async () => {
-        expect(true).toBeTruthy();
+const RSSFormat = require('./rss');
+const {EventEmitter} = require('node:events');
+
+describe('RSSFormat', () => {
+
+    let rssFormat, emitter;
+
+    beforeEach(() => {
+        emitter = new EventEmitter();
+        rssFormat = new RSSFormat(emitter);
     });
+
+    it('returns valid xml', () => {
+        const xml = rssFormat.buildRSSFeed();
+        expect(xml).toBeTruthy();
+    });
+
 });

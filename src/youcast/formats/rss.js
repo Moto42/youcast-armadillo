@@ -17,6 +17,7 @@ function RSSFormat(messageChannel) {
      */
     this.buildRSSFeed = (source,id) => {
         //gather info i need to know to build this thing
+        
     }
 }
 
