@@ -10,6 +10,14 @@ function RSSFormat(messageChannel) {
     this.shortcode = 'rss';
     this.name = 'rss';
 
+    /** build an rss feed of `id` from `source`
+     * 
+     * @param {string} source - shortcode of the source plugin to pull from
+     * @param {string} id - the unique id to find the resource at source
+     */
+    this.buildRSSFeed = (source,id) => {
+        //gather info i need to know to build this thing
+    }
 }
 
 
