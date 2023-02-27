@@ -14,7 +14,21 @@
  * explicit {boolean} optional, boolean Is this playlist explicit? 
  */
 class Playlist {
-    //todo: sanity check PlaylistIemProperties in constructor
+    /**
+     * 
+     * @param {Object} options 
+     * @param options.title? {string}
+     * @param options.author? {string}
+     * @param options.description? {string}
+     * @param options.imageUrl? {string}
+     * @param options.categories? {string}
+     * @param options.pubDate? {string[]}
+     * @param options.explicit? {boolean}
+    */
+   constructor(options){
+        //check for required properties. I wish I had started this in typescript.
+        Object.assign(this,options);
+    }
 
     title= 'untitled' ; 
     author= 'no author';
