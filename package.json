@@ -25,7 +25,8 @@
     "x2js": "^3.4.4",
     "xml": "^1.0.1",
     "ymp3d": "^1.0.5",
-    "ytdl-core": "^4.11.2"
+    "ytdl-core": "^4.11.2",
+    "ytpl": "^2.3.0"
   },
   "devDependencies": {
     "jest": "^29.4.0",
