@@ -17,7 +17,7 @@ function RSSFormat(messageChannel) {
      * @param {string} source - shortcode of the source plugin to pull from
      * @param {string} id - the unique id to find the resource at source
      */
-    this.buildRSSFeed = (source,id) => {
+    this.buildRSSFeed = (playlist) => {
         //gather info i need to know to build this thing
         //build rssfeed
         
@@ -48,11 +48,8 @@ function RSSFormat(messageChannel) {
             //customNamespaces: ,  /*optional object Put additional namespaces in element (without 'xmlns:' prefix) */
             //customElements: , /*optional array Put additional elements in the feed (node-xml syntax)*/
         });
-        console.log(rssFeed.buildXml());
         return rssFeed.buildXml();
     }
 }
-
-
 
 module.exports = RSSFormat;
