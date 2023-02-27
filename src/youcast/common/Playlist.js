@@ -23,9 +23,9 @@ class Playlist {
  * @property description  {string} Content for the item. Can contain html but link and image urls must be absolute path including hostname.
  * @property url  {url} string Url to the item. This could be a blog entry.
  * @property date  {Date} object or date string The date and time of when the item was created. Feed readers use this to determine the sort order. Some readers will also use it to determine if the content should be presented as unread.
- * @property categories  {optional} array of strings If provided, each array item will be added as a category element
- * @property author  {optional} string If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
- * @property explicit  {optional}, boolean Is this playlist explicit? 
+ * @property categories {array} optional  of strings If provided, each array item will be added as a category element
+ * @property author {string} optional  If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
+ * @property explicit {boolean} optional,  Is this playlist explicit? 
  * 
 */
 class PlaylistItem {
