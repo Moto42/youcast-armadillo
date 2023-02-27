@@ -1,18 +1,28 @@
 /**
  * Internal representation of a list of things to play.
+ * 
+ * @class
+ * title {string} 'untitled' ; 
+ * author {string} 'no author';
+ * list {PlaylistItem[]}  {Array}  the list of items on this playlist 
+ * description  {string};  optional string Description of this playlist 
+ * imageUrl {string};  optional *url string Small image for feed readers to use. 
+ * categories {string[]}  optional array of strings One or more categories this feed belongs to. 
+ * pubDate {Date|dateString}  optional Date object or date string The publication date for content in the feed 
+ * explicit {boolean} optional, boolean Is this playlist explicit? 
  */
 class Playlist {
     constructor() {
     }
     title= 'untitled' ; 
     author= 'no author';
-    list = [];     /* the list of items on this playlist */
+    list = [];
 
-    description = null; /* optional string Description of this playlist */
-    imageUrl= null;  /*optional *url string Small image for feed readers to use. */
-    categories= null;  /*optional array of strings One or more categories this feed belongs to. */
-    pubDate= null;  /*optional Date object or date string The publication date for content in the feed */
-    explicit = false; /* optional, boolean Is this playlist explicit? */
+    description = null;
+    imageUrl= null;
+    categories= null;
+    pubDate= null;
+    explicit = false;
 }
 
 /**
