@@ -1,5 +1,9 @@
 const RSSFormat = require('./rss');
 const {EventEmitter} = require('node:events');
+const X2JS = require("x2js")
+const converter = new X2JS();
+
+
 
 describe('RSSFormat', () => {
 
@@ -12,7 +16,10 @@ describe('RSSFormat', () => {
 
     it('returns valid xml', () => {
         const xml = rssFormat.buildRSSFeed();
-        expect(xml).toBeTruthy();
+        let result;
+        expect(() => {
+            result = converter.xml2js(xml);
+        }).not.toThrow();
     });
 
 });
