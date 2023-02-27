@@ -81,19 +81,27 @@ const YoutubeSource = function(messageChannel, options) {
     this.playlist = async (id) => {
         const isPlaylistId = ytdpl.validateID(id);
         const isVideoId = ytdl.validateID(id);
+
         if(isPlaylistId) {
             const ytdplOptions = {
                 limit: Infinity,
                 pages: Infinity,
             };
             const info = await ytdpl(id,ytdplOptions);
-            console.log(info);
+            const playlist =  new Playlist({
+                title: info.title,
+                author: info.author.name,
+                imageUrl: info.bestThumbnail,
+                description: info.description,
+            });
+            
+            return playlist;
         }
         else if(isVideoId) {}
         else {
             throw new Error(`youtube ide ${id} is neither a video or playlist id`);
         }
-        
+        // We should never reach this, but hey, empty playlist as an easter egg!
         return new Playlist();
     }
 }
