@@ -17,17 +17,26 @@ class Playlist {
 
 /**
  * Internal representation of a specific item on a playlist
+ * @class
+ * 
+ * @param title  {string} Title of this particular item.
+ * @property description  {string} Content for the item. Can contain html but link and image urls must be absolute path including hostname.
+ * @property url  {url} string Url to the item. This could be a blog entry.
+ * @property date  {Date} object or date string The date and time of when the item was created. Feed readers use this to determine the sort order. Some readers will also use it to determine if the content should be presented as unread.
+ * @property categories  {optional} array of strings If provided, each array item will be added as a category element
+ * @property author  {optional} string If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
+ * @property explicit  {optional}, boolean Is this playlist explicit? 
+ * 
 */
 class PlaylistItem {
+    title = 'untitled';
+    description = 'undescribed';
+    url = '';
+    date = '';
     
-    title = 'untitled' /* string Title of this particular item.*/
-    description = 'undescribed' /* string Content for the item. Can contain html but link and image urls must be absolute path including hostname.*/
-    url = '' /* url string Url to the item. This could be a blog entry.*/
-    date = '' /* Date object or date string The date and time of when the item was created. Feed readers use this to determine the sort order. Some readers will also use it to determine if the content should be presented as unread.*/
-    
-    categories = null /* optional array of strings If provided, each array item will be added as a category element*/
-    author = '' /* optional string If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.*/
-    explicit = false; /* optional, boolean Is this playlist explicit? */
+    categories = null;
+    author = '';
+    explicit = false;;
 }
 
 module.exports = {Playlist,PlaylistItem};
