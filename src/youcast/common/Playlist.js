@@ -1,6 +1,8 @@
 /**
  * Internal representation of a list of things to play.
  * 
+ * when a playlist is requested from a source, this is what is returned.
+ * 
  * @class
  * title {string} 'untitled' ; 
  * author {string} 'no author';
