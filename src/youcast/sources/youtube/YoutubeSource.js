@@ -1,7 +1,10 @@
 const Ymp3 = require('ymp3d')
+const ytdl = require('ytdl-core');
+const ytdpl = require('ytpl');
 const fs = require('fs');
 const EventEmitter  = require('node:events');
 const { fail } = require('assert');
+const { Playlist } = require('../../common/Playlist');
 
 /**
  * handler for getting information and files from Youtube. 
@@ -73,6 +76,25 @@ const YoutubeSource = function(messageChannel, options) {
     this.mp3url = (id) => {
         const url = `${process.env.SERVER_URL || ''}/mp3/youtube/${id}`;
         return url;
+    }
+
+    this.playlist = async (id) => {
+        const isPlaylistId = ytdpl.validateID(id);
+        const isVideoId = ytdl.validateID(id);
+        if(isPlaylistId) {
+            const ytdplOptions = {
+                limit: Infinity,
+                pages: Infinity,
+            };
+            const info = await ytdpl(id,ytdplOptions);
+            console.log(info);
+        }
+        else if(isVideoId) {}
+        else {
+            throw new Error(`youtube ide ${id} is neither a video or playlist id`);
+        }
+        
+        return new Playlist();
     }
 }
 

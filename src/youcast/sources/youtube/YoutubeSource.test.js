@@ -1,7 +1,9 @@
 const YoutubeSource = require('./YoutubeSource');
 const EventEmitter = require('node:events');
+const {Playlist} = require('../../common/Playlist');
 const fs = require('fs');
 const mockfs = require('mock-fs');
+const e = require('express');
 
 
 describe('can download a video', () => {
@@ -69,5 +71,27 @@ describe('mp3url', () => {
         expect(result).toEqual(correct);
     });
 
+
+});
+
+describe('playlist', () => {
+
+    let source, messageChannel;
+    const env = process.env
+
+    beforeEach(() => {
+        messageChannel = new EventEmitter();
+        source = new YoutubeSource(messageChannel);
+    });
+
+    it('returns a playlist', async () => {
+        expect(await source.playlist()).toBeInstanceOf(Playlist);
+    });
+
+    it.only('testing', async () => {
+        // await source.playlist('QTGoBI6Vqto'); /*video*/
+        await source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist*/
+        expect(false).toBeTruthy();
+    });
 
 });
