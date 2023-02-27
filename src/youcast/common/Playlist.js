@@ -39,7 +39,27 @@ class Playlist {
     categories= null;
     pubDate= null;
     explicit = false;
+
+    /**
+     * Add an item to this playlist.
+     * @param {PlaylistItemOptions} options 
+     */
+    addItem(options){
+        const newItem = new PlaylistItem(options);
+    }
 }
+
+/**
+ * @typedef PlaylistItemOptions
+     * @property title  {string} Title of this particular item.
+     * @property description  {string} Content for the item. Can contain html but link and image urls must be absolute path including hostname.
+     * @property source {string} the shortcode of the source of this item
+     * @property id {string} the unique id of this item at the source
+     * @property date  {Date} object or date string The date and time of when the item was created. Feed readers use this to determine the sort order. Some readers will also use it to determine if the content should be presented as unread.
+     * @property categories {array} optional  of strings If provided, each array item will be added as a category element
+     * @property author {string} optional  If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
+     * @property explicit {boolean} optional,  Is this playlist explicit? 
+ */
 
 /**
  * Internal representation of a specific item on a playlist
@@ -56,7 +76,13 @@ class Playlist {
  * 
 */
 class PlaylistItem {
-    //todo: sanity check PlaylistIemProperties in constructor
+    /**
+     * 
+     * @param {PlaylistItemOptions} options 
+     */
+    constructor(options){
+        Object.assign(this, options);
+    }
 
     title = 'untitled';
     description = 'undescribed';
