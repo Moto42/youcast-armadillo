@@ -1,5 +1,6 @@
 const RSSFormat = require('./rss');
 const {EventEmitter} = require('node:events');
+const {Playlist} = require('../common/Playlist');
 const X2JS = require("x2js")
 const converter = new X2JS();
 
@@ -15,7 +16,8 @@ describe('RSSFormat', () => {
     });
 
     it('returns valid xml', () => {
-        const xml = rssFormat.buildRSSFeed();
+        const playlist = new Playlist();
+        const xml = rssFormat.buildRSSFeed(playlist);
         let result;
         expect(() => {
             result = converter.xml2js(xml);

@@ -106,6 +106,7 @@ const YoutubeSource = function(messageChannel, options) {
                     id: video.id,
                     source: this.shortcode,
                     imageUrl: video.bestThumbnail,
+                    mp3url: this.mp3url(video.id),
                 });
                 playlist.list.push(newItem);
             });

@@ -1,4 +1,9 @@
 const {Podcast} = require('podcast');
+const {Playlist, PlaylistItem} = require("../common/Playlist");
+
+// Used to generate deterministic UUIDs for episodes
+const UUID_NAMESPACE = 'b1639c0a-b20d-4bad-8d1a-90eeb8c333b8';
+// yes, hardcoding is bad, but this will ensure that V5 UUIDS with the nameing scheme "source-id" will be the same, no matter where I move this code too.
 
 /**
  * handler for when a raw MP3 is requested
@@ -14,18 +19,36 @@ function RSSFormat(messageChannel) {
 
     /** build an rss feed of `id` from `source`
      * 
-     * @param {string} source - shortcode of the source plugin to pull from
-     * @param {string} id - the unique id to find the resource at source
+     * @param {Playlist} playlist
      */
-    this.buildRSSFeed = (playlist) => {
-        //gather info i need to know to build this thing
-        //build rssfeed
-        
+    this.buildRSSFeed = (playlist, source, id) => {
         const rssFeed = new Podcast({            
-            title: 'temptitle' ,  /*string Title of your site or feed */
-            author: 'Riley Anne',  /*string Who owns this feed. */
-            feedUrl: 'https://nope.not',  /*url string Url to the rss feed. */
-            siteUrl: 'https://epon.ton',  /*url string Url to the site that the feed is for. */
+            title: playlist.title ,  /*string Title of your site or feed */
+            author: playlist.author,  /*string Who owns this feed. */
+            feedUrl: `http://${process.env.SERVER_URL}/rss/${source}/${id}`,  /*url string Url to the rss feed. */
+            description: playlist.description,
+            imageUrl: playlist.imageUrl,
+            itunesAuthor: playlist.author,
+            itunesSummary: playlist.description,
+            itunesExplicit: playlist.explicit,
+            categories: playlist.categories,
+            itunesCategory: playlist.categories,
+            itunesImage: playlist.imageUrl,
+        });
+        // add episodes to the feed
+        playlist.list.forEach(item => {
+            rssFeed.addItem({
+                title: item.title,
+                description: item.description,
+                url: item.mp3Url,
+                categories: item.categories,
+                guid: "banana",
+                author: item.author,
+                itunesAuthor: item.author,
+                itunesExplicit: item.explicit,
+                itunesDuration: item.duration,
+                itunesImage: item.imageUrl,
+            });
         });
         return rssFeed.buildXml();
     }
