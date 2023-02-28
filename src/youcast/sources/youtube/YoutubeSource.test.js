@@ -96,5 +96,13 @@ describe('playlist', () => {
         const playlistFromVideo = await source.playlist('QTGoBI6Vqto'); /*video id*/
         expect(playlistFromVideo).toBeInstanceOf(Playlist);
     });
+    it('emits an event when it does generates a playlist', (done) => {
+        messageChannel.once('playlist-youtube-PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM',(msg)=>{
+            expect(msg.error).toBeNull();
+            expect(msg.playlist).toBeInstanceOf(Playlist);
+            done();
+        })
+        source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
+    });
 
 });

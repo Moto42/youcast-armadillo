@@ -5,6 +5,7 @@ const fs = require('fs');
 const EventEmitter  = require('node:events');
 const { fail } = require('assert');
 const { Playlist, PlaylistItem } = require('../../common/Playlist');
+const { emit } = require('process');
 
 /**
  * handler for getting information and files from Youtube. 
@@ -81,6 +82,7 @@ const YoutubeSource = function(messageChannel, options) {
     this.playlist = async (id) => {
         const isPlaylistId = ytdpl.validateID(id);
         const isVideoId = ytdl.validateID(id);
+        let playlist;
 
         if(isPlaylistId) {
             const ytdplOptions = {
@@ -88,7 +90,7 @@ const YoutubeSource = function(messageChannel, options) {
                 pages: Infinity,
             };
             const info = await ytdpl(id,ytdplOptions);
-            const playlist =  new Playlist({
+            playlist =  new Playlist({
                 title: info.title,
                 author: info.author.name,
                 imageUrl: info.bestThumbnail,
@@ -107,13 +109,13 @@ const YoutubeSource = function(messageChannel, options) {
                 });
                 playlist.list.push(newItem);
             });
-            return playlist;
+            // playlist is returned after this if/else pile
         }
         else if(isVideoId) {
             //get video information 
             const info = await ytdl.getBasicInfo(id);
             // create playlist for just this video
-            const playlist =  new Playlist({
+            playlist =  new Playlist({
                 title: info.videoDetails.title,
                 author: info.videoDetails.author.name,
                 imageUrl: info.videoDetails.bestThumbnail,
@@ -129,12 +131,17 @@ const YoutubeSource = function(messageChannel, options) {
                     source: this.shortcode,
                     imageUrl: info.thumbnail_url,
                 }));
-            //return it.
-            return playlist;
+            // playlist is returned after this if/else pile
         }
         else {
             throw new Error(`youtube ide ${id} is neither a video or playlist id`);
         }
+        const plEvent = {
+            error: null,
+            playlist: playlist,
+        };
+        this.messageChannel.emit(`playlist-${this.shortcode}-${id}`,plEvent);
+        return playlist;
     }
 }
 
