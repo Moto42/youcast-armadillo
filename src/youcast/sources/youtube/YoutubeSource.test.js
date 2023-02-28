@@ -83,6 +83,9 @@ describe('playlist', () => {
         messageChannel = new EventEmitter();
         source = new YoutubeSource(messageChannel);
     });
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
 
     it('throws on invalid input', async () => {
         await expect(async () => {await source.playlist()}).rejects.toThrow();
@@ -103,6 +106,13 @@ describe('playlist', () => {
             done();
         })
         source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
+    });
+    it('responds to event requesting a playlist', (done) => {
+        const spy  = jest.fn((id)=>done());
+        source.playlist = spy;
+        messageChannel.emit('youtube-playlist', 'QTGoBI6Vqto');
+        
+        expect(spy).toHaveBeenCalledWith('QTGoBI6Vqto');
     });
 
 });

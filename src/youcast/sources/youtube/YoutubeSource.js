@@ -143,6 +143,7 @@ const YoutubeSource = function(messageChannel, options) {
         this.messageChannel.emit(`playlist-${this.shortcode}-${id}`,plEvent);
         return playlist;
     }
+    this.messageChannel.on('youtube-playlist', (id)=> this.playlist(id));
 }
 
 /**
