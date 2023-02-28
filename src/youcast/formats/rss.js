@@ -41,7 +41,6 @@ function RSSFormat(messageChannel) {
             rssFeed.addItem({
                 title: item.title,
                 description: item.description,
-                url: item.mp3Url,
                 categories: item.categories,
                 guid: uuidv5(`${item.source}-${item.id}`, UUID_NAMESPACE),
                 author: item.author,
@@ -49,15 +48,28 @@ function RSSFormat(messageChannel) {
                 itunesExplicit: item.explicit,
                 itunesDuration: item.duration,
                 itunesImage: item.imageUrl,
+                enclosure: {
+                    url: item.mp3url,
+                    size: item.duration * 24000, //we save our mp3s at 24000 byte/sec
+                    type: "audio/mpeg",
+                },
             });
         });
         return rssFeed.buildXml();
     }
-    this.deliverRssFeed = (req,res,source,id) => {
-        res.status(501);
-        res.send("not implimented");
+    this.handleRSSFeedRequest = (req,res,source,id) => { 
+        // set up what we do when we get the playlist
+        messageChannel.once(`playlist-${source}-${id}`, (sourceResponce)=>{
+            const {playlist} = sourceResponce;
+            const fileName = playlist.title.replace(/[^0-9a-zA-z]/g,'');
+            res.setHeader("Content-Type",' application/rss+xml');
+            res.setHeader("Content-Disposition", "attachment;filename=" + fileName +'.xml');
+            res.send(this.buildRSSFeed(playlist));
+        });
+        // request the playlist.
+        messageChannel.emit(`${source}-playlist`,id);
     };
-    messageChannel.on('rss', this.deliverRssFeed);
+    messageChannel.on('rss', this.handleRSSFeedRequest);
 }
 
 module.exports = RSSFormat;

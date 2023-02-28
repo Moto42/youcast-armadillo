@@ -131,6 +131,7 @@ const YoutubeSource = function(messageChannel, options) {
                     id: info.videoDetails.videoId,
                     source: this.shortcode,
                     imageUrl: info.thumbnail_url,
+                    mp3url: this.mp3url(info.id),
                 }));
             // playlist is returned after this if/else pile
         }
