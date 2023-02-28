@@ -107,8 +107,8 @@ describe('playlist', () => {
         })
         source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
     });
-    it('responds to event requesting a playlist', (done) => {
-        const spy  = jest.fn((id)=>done());
+    it('responds to event requesting a playlist', () => {
+        const spy  = jest.fn((id)=>id);
         source.playlist = spy;
         messageChannel.emit('youtube-playlist', 'QTGoBI6Vqto');
         
