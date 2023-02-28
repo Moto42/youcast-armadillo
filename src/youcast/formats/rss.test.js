@@ -1,6 +1,6 @@
 const RSSFormat = require('./rss');
 const {EventEmitter} = require('node:events');
-const {Playlist} = require('../common/Playlist');
+const {Playlist, PlaylistItem} = require('../common/Playlist');
 const X2JS = require("x2js")
 const converter = new X2JS();
 
@@ -17,6 +17,14 @@ describe('RSSFormat', () => {
 
     it('returns valid xml', () => {
         const playlist = new Playlist();
+        playlist.addItem(new PlaylistItem({
+            id:'test1',
+            source: 'rss.test.js',
+        }));
+        playlist.addItem(new PlaylistItem({
+            id:'test2',
+            source: 'rss.test.js',
+        }));
         const xml = rssFormat.buildRSSFeed(playlist);
         let result;
         expect(() => {

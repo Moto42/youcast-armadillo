@@ -1,5 +1,6 @@
 const {Podcast} = require('podcast');
 const {Playlist, PlaylistItem} = require("../common/Playlist");
+const { v5:uuidv5 } = require('uuid');
 
 // Used to generate deterministic UUIDs for episodes
 const UUID_NAMESPACE = 'b1639c0a-b20d-4bad-8d1a-90eeb8c333b8';
@@ -42,7 +43,7 @@ function RSSFormat(messageChannel) {
                 description: item.description,
                 url: item.mp3Url,
                 categories: item.categories,
-                guid: "banana",
+                guid: uuidv5(`${item.source}-${item.id}`, UUID_NAMESPACE),
                 author: item.author,
                 itunesAuthor: item.author,
                 itunesExplicit: item.explicit,
