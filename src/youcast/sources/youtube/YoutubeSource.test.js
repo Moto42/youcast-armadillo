@@ -84,14 +84,17 @@ describe('playlist', () => {
         source = new YoutubeSource(messageChannel);
     });
 
-    it('returns a playlist', async () => {
-        expect(await source.playlist()).toBeInstanceOf(Playlist);
+    it('throws on invalid input', async () => {
+        await expect(async () => {await source.playlist()}).rejects.toThrow();
+        await expect(async () => {await source.playlist('invalidId')}).rejects.toThrow();
     });
 
-    it.only('testing', async () => {
-        // await source.playlist('QTGoBI6Vqto'); /*video*/
-        await source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist*/
-        expect(false).toBeTruthy();
+    it('returns playlist on valid input.', async () => {
+        // await source.playlist(''); /*video*/
+        const playlistFromList = await source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
+        expect(playlistFromList).toBeInstanceOf(Playlist);
+        const playlistFromVideo = await source.playlist('QTGoBI6Vqto'); /*video id*/
+        expect(playlistFromVideo).toBeInstanceOf(Playlist);
     });
 
 });

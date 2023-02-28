@@ -4,7 +4,7 @@ const ytdpl = require('ytpl');
 const fs = require('fs');
 const EventEmitter  = require('node:events');
 const { fail } = require('assert');
-const { Playlist } = require('../../common/Playlist');
+const { Playlist, PlaylistItem } = require('../../common/Playlist');
 
 /**
  * handler for getting information and files from Youtube. 
@@ -94,15 +94,47 @@ const YoutubeSource = function(messageChannel, options) {
                 imageUrl: info.bestThumbnail,
                 description: info.description,
             });
-            
+            // add each item in info.list to playlist.list
+            info.items.forEach(video => {
+                const newItem = new PlaylistItem({
+                    title: video.title,
+                    author: video.author.name,
+                    duration: video.durationSec,
+                    description: video.description,
+                    id: video.id,
+                    source: this.shortcode,
+                    imageUrl: video.bestThumbnail,
+                });
+                playlist.list.push(newItem);
+            });
             return playlist;
         }
-        else if(isVideoId) {}
+        else if(isVideoId) {
+            //get video information 
+            const info = await ytdl.getBasicInfo(id);
+            // create playlist for just this video
+            const playlist =  new Playlist({
+                title: info.videoDetails.title,
+                author: info.videoDetails.author.name,
+                imageUrl: info.videoDetails.bestThumbnail,
+                description: info.videoDetails.description,
+            });
+            // add that video as the only item in this playlist
+                playlist.list.push(new PlaylistItem({
+                    title: info.videoDetails.title,
+                    author: info.videoDetails.author.name,
+                    duration: info.videoDetails.lengthSeconds,
+                    description: info.videoDetails.description,
+                    id: info.videoDetails.videoId,
+                    source: this.shortcode,
+                    imageUrl: info.thumbnail_url,
+                }));
+            //return it.
+            return playlist;
+        }
         else {
             throw new Error(`youtube ide ${id} is neither a video or playlist id`);
         }
-        // We should never reach this, but hey, empty playlist as an easter egg!
-        return new Playlist();
     }
 }
 

@@ -53,12 +53,15 @@ class Playlist {
  * @typedef PlaylistItemOptions
      * @property title  {string} Title of this particular item.
      * @property description  {string} Content for the item. Can contain html but link and image urls must be absolute path including hostname.
+     * @property duration {number} duration of video in seconds
      * @property source {string} the shortcode of the source of this item
      * @property id {string} the unique id of this item at the source
      * @property date  {Date} object or date string The date and time of when the item was created. Feed readers use this to determine the sort order. Some readers will also use it to determine if the content should be presented as unread.
      * @property categories {array} optional  of strings If provided, each array item will be added as a category element
      * @property author {string} optional  If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
      * @property explicit {boolean} optional,  Is this playlist explicit? 
+     * @property imageUrl {string} url to image for this item
+     * 
  */
 
 /**
@@ -92,7 +95,8 @@ class PlaylistItem {
     
     categories = null;
     author = '';
-    explicit = false;;
+    explicit = false;
+    imageUrl= null;
 }
 
 module.exports = {Playlist,PlaylistItem};
