@@ -53,6 +53,11 @@ function RSSFormat(messageChannel) {
         });
         return rssFeed.buildXml();
     }
+    this.deliverRssFeed = (req,res,source,id) => {
+        res.status(501);
+        res.send("not implimented");
+    };
+    messageChannel.on('rss', this.deliverRssFeed);
 }
 
 module.exports = RSSFormat;
