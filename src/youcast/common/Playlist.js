@@ -76,7 +76,7 @@ class Playlist {
  * @property categories {array} optional  of strings If provided, each array item will be added as a category element
  * @property author {string} optional  If included it is the name of the item's creator. If not provided the item author will be the same as the feed author. This is typical except on multi-author blogs.
  * @property explicit {boolean} optional,  Is this playlist explicit? 
- * @property mp3Url 'string' url to fetch the mp3 from.
+ * @property mp3url 'string' url to fetch the mp3 from.
  * 
 */
 class PlaylistItem {
@@ -93,7 +93,7 @@ class PlaylistItem {
     source = '';
     id = '';
     date = '';
-    mp3Url = '';
+    mp3url = '';
     
     categories = null;
     author = '';
