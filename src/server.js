@@ -1,7 +1,7 @@
 /**
  * Express server that just hands requests off to the middleware.
  */
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const youcast = require('./youcast');

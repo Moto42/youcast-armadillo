@@ -1,7 +1,9 @@
 const YoutubeSource = require('./YoutubeSource');
 const EventEmitter = require('node:events');
+const {Playlist} = require('../../common/Playlist');
 const fs = require('fs');
 const mockfs = require('mock-fs');
+const e = require('express');
 
 
 describe('can download a video', () => {
@@ -69,5 +71,48 @@ describe('mp3url', () => {
         expect(result).toEqual(correct);
     });
 
+
+});
+
+describe('playlist', () => {
+
+    let source, messageChannel;
+    const env = process.env
+
+    beforeEach(() => {
+        messageChannel = new EventEmitter();
+        source = new YoutubeSource(messageChannel);
+    });
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    it('throws on invalid input', async () => {
+        await expect(async () => {await source.playlist()}).rejects.toThrow();
+        await expect(async () => {await source.playlist('invalidId')}).rejects.toThrow();
+    });
+
+    it('returns playlist on valid input.', async () => {
+        // await source.playlist(''); /*video*/
+        const playlistFromList = await source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
+        expect(playlistFromList).toBeInstanceOf(Playlist);
+        const playlistFromVideo = await source.playlist('QTGoBI6Vqto'); /*video id*/
+        expect(playlistFromVideo).toBeInstanceOf(Playlist);
+    });
+    it('emits an event when it does generates a playlist', (done) => {
+        messageChannel.once('playlist-youtube-PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM',(msg)=>{
+            expect(msg.error).toBeNull();
+            expect(msg.playlist).toBeInstanceOf(Playlist);
+            done();
+        })
+        source.playlist('PLbpi6ZahtOH6eTD4bB5qJ50QQRHz2leKM'); /*playlist id*/
+    });
+    it('responds to event requesting a playlist', () => {
+        const spy  = jest.fn((id)=>id);
+        source.playlist = spy;
+        messageChannel.emit('youtube-playlist', 'QTGoBI6Vqto');
+        
+        expect(spy).toHaveBeenCalledWith('QTGoBI6Vqto');
+    });
 
 });

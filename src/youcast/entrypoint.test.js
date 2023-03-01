@@ -28,7 +28,7 @@ describe('api/formats', () => {
         expect(response.status).toBe(200);
         
         const actual = JSON.parse(response.text);
-        const correct = ['api','mp3'];
+        const correct = ['api','mp3','rss'];
         
         expect(actual).toEqual(correct);
         

@@ -25,7 +25,6 @@ const sourcesRegistry = new SourcesRegistry(youcastEventChannel);
 sourcesRegistry.registerAll();
 
 function entrypoint(req, res, next){
-
     const [format,source,identifier] = req.path.split(/\//g).slice(1);
     console.log({format,source,identifier});
     if(formatRegistry.includesByShortcode(format)) youcastEventChannel.emit(format, req, res, source, identifier);
