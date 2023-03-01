@@ -75,7 +75,7 @@ function RSSFormat(messageChannel) {
             if(precache) doPrecache(playlist);
             const fileName = playlist.title.replace(/[^0-9a-zA-z]/g,'');
             res.setHeader("Content-Type",' application/rss+xml');
-            res.setHeader("Content-Disposition", "attachment;filename=" + fileName +'.xml');
+            res.setHeader("Content-Disposition", "inline;filename=" + fileName +'.xml');
             res.send(this.buildRSSFeed(playlist));
         });
         // request the playlist.
