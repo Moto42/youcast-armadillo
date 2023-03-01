@@ -1,5 +1,5 @@
 const {Podcast} = require('podcast');
-const {Playlist, PlaylistItem} = require("../common/Playlist");
+const {Playlist} = require("../common/Playlist");
 const { v5:uuidv5 } = require('uuid');
 
 // Used to generate deterministic UUIDs for episodes
@@ -58,9 +58,21 @@ function RSSFormat(messageChannel) {
         return rssFeed.buildXml();
     }
     this.handleRSSFeedRequest = (req,res,source,id) => { 
+
+        // do we want to pre-load the mp3's for this, or lazy load them?
+        const precache = req.query['precache'] == '' || req.query['precache']== 'true' || ( process.env.PRECACHE_DEFAULT == true && req.query['precache'] !== false);
+        /**
+         * 
+         * @param {Playlist} playlist 
+         */
+        function doPrecache(playlist) {
+            playlist.list.forEach(item => messageChannel.emit(`${source}.mp3`,item.id));
+        }
+
         // set up what we do when we get the playlist
         messageChannel.once(`playlist-${source}-${id}`, (sourceResponce)=>{
             const {playlist} = sourceResponce;
+            if(precache) doPrecache(playlist);
             const fileName = playlist.title.replace(/[^0-9a-zA-z]/g,'');
             res.setHeader("Content-Type",' application/rss+xml');
             res.setHeader("Content-Disposition", "attachment;filename=" + fileName +'.xml');
