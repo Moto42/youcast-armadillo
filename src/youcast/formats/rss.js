@@ -59,6 +59,8 @@ function RSSFormat(messageChannel) {
     }
     this.handleRSSFeedRequest = (req,res,source,id) => { 
 
+        if(id.slice(-4)=='.xml') id = id.slice(0,-4);
+
         // do we want to pre-load the mp3's for this, or lazy load them?
         const precache = req.query['precache'] == '' || req.query['precache']== 'true' || ( process.env.PRECACHE_DEFAULT == true && req.query['precache'] !== false);
         /**
@@ -75,6 +77,7 @@ function RSSFormat(messageChannel) {
             if(precache) doPrecache(playlist);
             const fileName = playlist.title.replace(/[^0-9a-zA-z]/g,'');
             res.setHeader("Content-Type",' application/rss+xml');
+            res.setHeader("Link",'<https://google.com>');
             res.setHeader("Content-Disposition", "inline;filename=" + fileName +'.xml');
             res.send(this.buildRSSFeed(playlist,source,id));
         });
